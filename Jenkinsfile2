@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages {
+        stage('job1') {
+            steps {
+                sh 'mkdir sonal'
+            }
+        }
+        stage('job2') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "mkdir sonal"
+                }
+            }
+        }
+        stage('job3') {
+            steps {
+                sh 'touch myfile'
+            }
+        }
+    }
+}
