@@ -1,6 +1,6 @@
 pipeline{
     tools{
-        maven 'mymaven'
+        maven 'Maven'
     }
    // in agent any = any available server 
     agent any
