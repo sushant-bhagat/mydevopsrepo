@@ -1,37 +1,36 @@
-//parameterized pipeline//
-pipeline{
-    
+// Parameterized pipeline
+pipeline {
     agent any
     
-    tools{
+    tools {
         maven 'Mymaven'
     }
     
-    parameters{
-        
-        choice(name:'ENV', choices:["","Dev","QA"])
+    parameters {
+        choice(name: 'ENV', choices: ["Dev", "QA"])
     }
     
-    stages{
-        
-        stage('Build on Dev Env')
-        {
-            when{
-                expression {params.ENV == 'Dev'}
-            }
-            
-            steps{
+    stages {
+        stage('Checkout') {
+            steps {
                 git 'https://github.com/Sonal0409/DevOpsCodeDemo.git'
+            }
+        }
+        
+        stage('Build on Dev Env') {
+            when {
+                expression { params.ENV == 'Dev' }
+            }
+            steps {
                 sh 'mvn compile'
             }
         }
-        stage('Build on Test Env'){
-            when{
-                expression {params.ENV == 'QA'}
+        
+        stage('Build on Test Env') {
+            when {
+                expression { params.ENV == 'QA' }
             }
-            
-            steps{
-                git 'https://github.com/Sonal0409/DevOpsCodeDemo.git'
+            steps {
                 sh 'mvn test'
             }
         }
