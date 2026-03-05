@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Sonal0409/DevOpsCodeDemo.git'
+                git 'https://github.com/sushant-bhagat/mydevopsrepo.git'
             }
         }
         
