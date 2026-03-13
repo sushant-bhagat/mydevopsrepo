@@ -1,3 +1,4 @@
+
 //CICD pipeline for tomcat9 server
 pipeline{
     
@@ -11,7 +12,7 @@ pipeline{
         stage('checkout code')
         {
             steps{
-                git  'https://github.com/Sonal0409/DevOpsCodeDemo.git'
+                git 'https://github.com/Sonal0409/DevOpsCodeDemo.git'
             }
         }
         
@@ -22,13 +23,13 @@ pipeline{
             }
             
             post{
-                
-                 success{
+                success{
                     deploy adapters: [tomcat9(credentialsId: 'tomcat1', path: '', url: 'http://localhost:9090/')], contextPath: null, war: '**/*.war'
                 }
-                
+                failure{
+                    echo 'Build or deployment failed!'
+                }
             }
         }
-        
     }
-    }
+}
